@@ -11,11 +11,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -72,11 +76,13 @@ fun OnboardingScreen(
 private fun Greeting(name: String, modifier: Modifier = Modifier) {
     var expanded by rememberSaveable { mutableStateOf(false) }
 
-    val extraPadding by animateDpAsState(if (expanded)
-        48.dp else 0.dp, animationSpec = spring(
-        dampingRatio = Spring.DampingRatioMediumBouncy,
-        stiffness = Spring.StiffnessLow
-    ))
+    val extraPadding by animateDpAsState(
+        if (expanded)
+            48.dp else 0.dp, animationSpec = spring(
+            dampingRatio = Spring.DampingRatioMediumBouncy,
+            stiffness = Spring.StiffnessLow
+        )
+    )
 
     Surface(
         color = MaterialTheme.colors.primary,
@@ -89,12 +95,27 @@ private fun Greeting(name: String, modifier: Modifier = Modifier) {
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
                 Text(text = "Hello, ")
-                Text(text = name, style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.ExtraBold))
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.ExtraBold)
+                )
+                if (expanded){
+                    Text(
+                        text = ("Composem ipsum color sit lazy, " +
+                                "padding theme elit, sed do bouncy. ").repeat(4),
+                    )
+                }
             }
-            Button(modifier = modifier,
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
+            IconButton(modifier = modifier,
                 onClick = { expanded = !expanded }) {
-                Text(if (expanded) "Show less" else "Show more")
+                Icon(
+                    imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                    contentDescription =
+                    if (expanded)
+                        stringResource(R.string.show_less)
+                    else
+                        stringResource(R.string.show_more)
+                )
             }
         }
 
@@ -125,7 +146,8 @@ fun Greetings(
 @Preview(
     showBackground = true,
     widthDp = 320,
-    uiMode = Configuration.UI_MODE_NIGHT_YES)
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
 fun GreetingPreview() {
     MyApplicationTheme {
