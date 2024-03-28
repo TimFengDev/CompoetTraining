@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,9 +16,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.BasicsCodelabTheme
+import com.example.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,8 +88,8 @@ private fun Greeting(name: String, modifier: Modifier = Modifier) {
                     .weight(1f)
                     .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
-                Text(text = "Hello")
-                Text(text = name)
+                Text(text = "Hello, ")
+                Text(text = name, style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.ExtraBold))
             }
             Button(modifier = modifier,
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red),
@@ -119,10 +122,13 @@ fun Greetings(
     }
 }
 
-@Preview(showBackground = true, widthDp = 320)
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun GreetingPreview() {
-    BasicsCodelabTheme {
+    MyApplicationTheme {
         Greetings()
     }
 }

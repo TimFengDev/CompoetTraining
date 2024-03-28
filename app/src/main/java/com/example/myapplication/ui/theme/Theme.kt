@@ -7,6 +7,8 @@ import androidx.compose.material.MaterialTheme.typography
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.input.KeyboardType.Companion.Text
+import androidx.compose.ui.text.font.FontWeight
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -52,7 +54,7 @@ fun MyApplicationTheme(
 fun BasicsCodelabTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colors = LightColorPalette,
-        typography = typography,
+        typography = Typography,
         shapes = shapes,
         content = content
     )
